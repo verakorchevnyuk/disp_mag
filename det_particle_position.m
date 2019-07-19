@@ -26,7 +26,7 @@ Bp = 1/(q*c)*sqrt( T^2 +2*T*E0 ) ;
 
 % bending radius
 rM = Bp / B ;
-
+    
 % normalize velocity vector
 v1 = [ v1(1)/norm(v1), v1(2)/norm(v1) ] ;
 

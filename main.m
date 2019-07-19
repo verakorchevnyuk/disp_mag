@@ -16,7 +16,7 @@ NI = 200*500 ; % Amp-turns
 [ theta0, P0, V0, B0, G0, lm0 ] = particle_trajectory_for_goal_angle( goalTheta0, T0, rref, Bref, Bgrad, p, v, resol, gapMin, NI ) ;
 
 % Low energy beam
-T1 = 110e6 ; %[eV]
+T1 = 100e6 ; %[eV]
 goalTheta1 = 120 ; %[degrees]
 [ theta1, P1, V1, B1, G1, lm1 ] = particle_trajectory_for_goal_angle( goalTheta1, T1, rref, Bref, Bgrad, p, v, resol, gapMin, NI ) ;
 

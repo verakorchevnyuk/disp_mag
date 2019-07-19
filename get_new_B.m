@@ -31,5 +31,11 @@ if gap < gapmin
     fprintf('\n+++++++++++++++++++++ ERROR: gap size! ++++++++++++++++++++++\n')
 end
 
+% check if B is negative
+if B < 0 
+    fprintf('\n ^ v ^ v ^ Compute B is negative. Set to zero. ^ v ^ v ^ v \n')
+    B = 0 ;
+end
+
 end
 
