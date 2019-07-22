@@ -59,6 +59,7 @@ function [ theta, P, V, B, G, lm ] = particle_trajectory_until_exiting_magnet( m
             P = [ P ; p ] ;
             V = [ V ; v ] ;
         else
+            disp('/!\ B=0, beam travelling straigth /!\') ;
             V = [ V ; v ] ;
             p = p + resol*v 
             P = [ P ; p ] ;
