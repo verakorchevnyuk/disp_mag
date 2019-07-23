@@ -1,7 +1,7 @@
 clear; close all; clc;
 
-beta = linspace(-45,89,50) ;
-Bgrad = linspace(0,10,50) ;
+beta = linspace(-45,89,10) ;
+Bgrad = linspace(0,10,10) ;
 
 for i = 1:length(beta)
     for j = 1:length(Bgrad)

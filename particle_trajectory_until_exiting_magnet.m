@@ -46,15 +46,11 @@ function [ theta, P, V, B, G, lm ] = particle_trajectory_until_exiting_magnet( m
     p = p1 ;
     v = v1 ;
     
-    % functions of the magnet limit
-    fy = @(m,b,x) m*x + b ;
-%     fx = @(m,b,y) (y-b)/m ;
-    
     % loop until goal angle is reached
     
     %while and( fy( m, b, p(1) ) < p(2), fx( m, b, p(2) ) > p(1) )
-    while fy( m, b, p(1) ) < p(2)
-        if B ~= 0
+    while ( fy( m, b, p(1) ) < p(2) )
+        if (B ~= 0)
             [ p, v, alpha, ~ ] = det_particle_position( T, newB, p, v, resol ) ;
             P = [ P ; p ] ;
             V = [ V ; v ] ;
@@ -64,16 +60,17 @@ function [ theta, P, V, B, G, lm ] = particle_trajectory_until_exiting_magnet( m
             p = p + resol*v 
             P = [ P ; p ] ;
             alpha = 0 ;
-        end
+        endif
         theta = theta + alpha ;
-        if theta >= 180
+        if (theta >= 180)
             disp('/!\ Beam exit angle >= 180 /!\') ;
             return
-        end
+        endif
         [ newB, newGap ] = get_new_B( Bref, rref, p, Bgrad, gapMin, NI ) ;
         B = [ B ; newB ] ;
         G = [ G ; newGap ] ;
         lm = lm + resol ;
-    end
+    endwhile
+
     
-end
+endfunction

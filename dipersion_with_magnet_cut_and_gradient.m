@@ -18,7 +18,7 @@ function [alpha1, alpha2, total_alpha] = dipersion_with_magnet_cut_and_gradient(
 
 
 % Reference beam
-T0 = 120e6 ; %[eV]
+T0 = 106e6 ; %[eV]
 goalTheta0 = 90 ; %[degrees]
 Bref = 1 ; %[T/m]
 % Bgrad = 0 ; %[T/m]
@@ -34,10 +34,10 @@ NI = 200*500 ; % Amp-turns
 T1 = 100e6; %[eV]
 
 % High energy beam
-T2 = 140e6; %[eV]
+T2 = 112e6; %[eV]
 
 % Line coefficients
-exit_point = P0(end,:) ;
+exit_point = P0(size(P0,1),:) ;
 % M = beta ;
 [ m, b ] = cartesian_coefficients_line( exit_point, beta ) ;
 % Low energy trajectory
@@ -52,12 +52,11 @@ total_alpha = alpha1 + alpha2 ;
 
 %% Plotting
 if (char(plot_info) == 'y')
-        xx_cut(:) = linspace(0,P0(end,1)*1.5,100) ;
-        fy = @(m,b,x) m*x + b ;
-        yy_cut(:) = fy(m,b,xx_cut(:)) ;
+        xx_cut = linspace(0,P0(size(P0,1),1)*1.5,100) ;
+        yy_cut = fy(m,b,xx_cut) ;
         
         figure
-        plot(xx_cut(:),yy_cut(:),'.'); % Cutting line
+        plot(xx_cut',yy_cut','.'); % Cutting line
         grid on;
         daspect([1 1 1])
         hold on;
@@ -69,21 +68,8 @@ if (char(plot_info) == 'y')
         plot(P2(:,1),P2(:,2)); % High energy beam
         
         title({['\beta = ', num2str(beta,'%.1f'), ' degrees | dB/dr = ', num2str(Bgrad), ' T/m'],... 
-            ['\theta_1 = ' num2str(alpha1,'%.1f') ' degrees; ' '\theta_2 = ' num2str(alpha2,'%.1f') ' degrees; ' '\alpha = ' num2str(total_alpha,'%.1f') ' degrees' ]});
-end
+            ['\theta_1 = ' num2str(alpha1,'%.1f') ' degrees; ' '\theta_2 = ' num2str(alpha2,'%.1f') ' degrees; ' '\alpha = ' num2str(total_alpha,'%.1f') ' degrees' ]}, "fontsize", 15);
+endif
 
-%%
-
-% Evolution of angle dispersion
-% figure
-% plot(betas,alpha1,'*')
-% grid on
-% hold on
-% plot(betas,alpha2,'*')
-% plot(betas,alpha,'*')
-% legend('alpha1','alpha2','total alpha')
-
-
-
-end
+endfunction
 
