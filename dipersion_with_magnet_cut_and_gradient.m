@@ -6,7 +6,7 @@ function [alpha1, alpha2, total_alpha] = dipersion_with_magnet_cut_and_gradient(
 %
 % IN:
     % Bgrad: quadrupolar component of the magnet [T/m]
-    % plot_info: 'y' or 'n' in case you or not the plot to be displayed
+    % plot_info: 'y' or 'n' in case you want or not the plot to be displayed
 %
 % OUT:
     % alpha1: difference between the reference and the light exiting beam
@@ -42,6 +42,7 @@ exit_point = P0(size(P0,1),:) ;
 [ m, b ] = cartesian_coefficients_line( exit_point, beta ) ;
 % Low energy trajectory
 [ theta1, P1, V1, B1, G1, lm1 ] = particle_trajectory_until_exiting_magnet( m, b, T1, rref, Bref, Bgrad, p, v, resol, gapMin, NI ) ;
+
 % High energy trajectory
 [ theta2, P2, V2, B2, G2, lm2 ] = particle_trajectory_until_exiting_magnet( m, b, T2, rref, Bref, Bgrad, p, v, resol, gapMin, NI ) ;
 
@@ -69,7 +70,6 @@ if (char(plot_info) == 'y')
         
         title({['\beta = ', num2str(beta,'%.1f'), ' degrees | dB/dr = ', num2str(Bgrad), ' T/m'],... 
             ['\theta_1 = ' num2str(alpha1,'%.1f') ' degrees; ' '\theta_2 = ' num2str(alpha2,'%.1f') ' degrees; ' '\alpha = ' num2str(total_alpha,'%.1f') ' degrees' ]}, "fontsize", 15);
-endif
+end
 
-endfunction
-
+end

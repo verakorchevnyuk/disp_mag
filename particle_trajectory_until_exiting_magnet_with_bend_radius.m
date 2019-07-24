@@ -1,4 +1,4 @@
-function [ theta, P, V, B, G, lm ] = particle_trajectory_until_exiting_magnet( m, b, T, rref, Bref, Bgrad, p1, v1, resol, gapMin, NI )
+function [ theta, P, V, B, G, lm, R ] = particle_trajectory_until_exiting_magnet_with_bend_radius( m, b, T, rref, Bref, Bgrad, p1, v1, resol, gapMin, NI )
 % Given the initial position and velocity vector of the particles, the
 % following function computes the trajectory of the beam in cartesean
 % coordinates (matrix P) until the limits of the magnet defined by m and b
@@ -45,13 +45,14 @@ function [ theta, P, V, B, G, lm ] = particle_trajectory_until_exiting_magnet( m
     newB = Bref ;
     p = p1 ;
     v = v1 ;
+    R = [] ;
     
     % loop until goal angle is reached
     
     %while and( fy( m, b, p(1) ) < p(2), fx( m, b, p(2) ) > p(1) )
     while ( fy( m, b, p(1) ) < p(2) )
         if (B ~= 0)
-            [ p, v, alpha, ~ ] = det_particle_position( T, newB, p, v, resol ) ;
+            [ p, v, alpha, rM ] = det_particle_position( T, newB, p, v, resol ) ;
             P = [ P ; p ] ;
             V = [ V ; v ] ;
         else
@@ -70,6 +71,7 @@ function [ theta, P, V, B, G, lm ] = particle_trajectory_until_exiting_magnet( m
         B = [ B ; newB ] ;
         G = [ G ; newGap ] ;
         lm = lm + resol ;
+        R = [ R, rM ] ;
     end
 
     

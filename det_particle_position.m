@@ -52,5 +52,5 @@ if alpha < 0
     alpha = alpha + 360 ;
 end
     
-endfunction
+end
 
